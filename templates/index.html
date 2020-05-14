@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+<div class="content">
+    <div class="search">
+        <form action="" class="search-form">
+            <input type="text" placeholder="name == 'test' && age > 19" class="search-input">
+            <div class="info-div">
+                <input type="text" id="host" placeholder="host" class="info-input" value="{{ host }}">
+                <input type="text" id="port" placeholder="port" class="info-input" value="{{ port }}">
+                <input type="text" id="database" placeholder="database" class="info-input" value="{{ database }}">
+                <input type="text" id="password" placeholder="username" class="info-input" value="{{ username }}">
+                <input type="password" id="password" placeholder="password" class="info-input" value="{{ password }}">
+                <button class="info-btn save-config">保 存</button>
+            </div>
+        </form>
+    </div>
+    <div class="table-list">
+        <table class="data-list">
+            <caption>Current Collection -> {{ collection }}</caption>
+            <thead>
+            <tr>
+                <th class="th-left">#ID</th>
+                <th>DataItem</th>
+                <th class="th-right">Operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item }}</td>
+                    <td>
+                        <button class="view">查 看</button>
+                        <button class="delete">删 除</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <ul class="pagination">
+        {% if current_page > 1 %}
+            <li class="paginate_button previous">
+                <a href="?page={{ current_page | add:-1 }}">上一页</a>
+            </li>
+        {% else %}
+            <li class="paginate_button previous">
+                <a href="javascript:void(0);">上一页</a>
+            </li>
+        {% endif %}
+        {% if current_page < page_range %}
+            <li class="paginate_button  next">
+                <a href="?page={{ current_page | add:1 }}">下一页</a>
+            </li>
+        {% else %}
+            <li class="paginate_button next">
+                <a href="javascript:void(0);">下一页</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

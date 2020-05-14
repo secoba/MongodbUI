@@ -1,0 +1,199 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #ececec;
+}
+
+.content {
+    top: 5%;
+    width: 60%;
+    height: 90%;
+    background-color: #ffffff;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 20px;
+}
+
+
+.search {
+    padding: 4em 4em 3em 4em;
+}
+
+.table-list {
+    padding: 0 4em 2em 4em;
+}
+
+.search-form {
+    width: 100%;
+}
+
+.search-input {
+    width: 99%;
+    height: 40px;
+    outline: none;
+    color: #585858;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px dashed #585858;
+}
+
+.info-div {
+    padding: 1em 0 0 0;
+}
+
+.info-input {
+    width: 10%;
+    height: 21px;
+    outline: none;
+    color: #585858;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px dashed #585858;
+}
+
+.info-btn {
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #10c453;
+    padding: 4px 10px;
+    color: #f4f4f4;
+    outline: none;
+}
+
+.info-btn:hover {
+    color: #ffffff;
+    background-color: #0eaa47;
+}
+
+
+/* ------------------------------- table ------------------------------- */
+
+.data-list {
+    width: 100%;
+    border: 1px dashed #585858; /* 表格边框 */
+    border-collapse: collapse; /* 边框重叠 */
+}
+
+.data-list tr:hover {
+    background-color: #dbf0fe; /* 动态变色,IE6下无效！*/
+    /* background-color: #585858; */
+}
+
+.data-list caption {
+    font-weight: bold;
+    padding: 10px 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #f0f7ff;
+    border: 1px dashed #585858; /* 表格标题边框 */
+    border-bottom: none;
+}
+
+.data-list table tr th, .data-list table tr td {
+    border-right: 1px solid #d4d8da;
+    border-bottom: 1px solid #d4d8da;
+    padding: 5px;
+}
+
+.data-list th {
+    border: 1px dashed #585858; /* 行、列名称边框 */
+    background-color: #f0f7ff;
+    font-weight: bold;
+    padding: 4px 10px 4px 10px;
+    text-align: center;
+}
+
+.data-list td {
+    border: 1px dashed #585858; /* 单元格边框 */
+    text-align: center;
+    padding: 4px;
+}
+
+.th-left {
+    width: 10%;
+}
+
+.th-right {
+    width: 15%;
+}
+
+.data-list button {
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.data-list .view {
+    background-color: #68b7fe;
+    padding: 5px 10px;
+    color: #f4f4f4;
+    outline: none;
+}
+
+.data-list .view:hover {
+    color: #ffffff;
+    background-color: #479ffe;
+}
+
+.data-list .delete {
+    background-color: #e97984;
+    padding: 5px 10px;
+    color: #f4f4f4;
+    outline: none;
+}
+
+.data-list .delete:hover {
+    color: #ffffff;
+    background-color: #e96973;
+}
+
+/* ----------------------- pagination ----------------------- */
+
+
+.pagination {
+    padding: 0 4em 0 0;
+    text-align: right;
+}
+
+.pagination > li {
+    display: inline;
+}
+
+.pagination > li:first-child > a, .pagination > li:first-child > span {
+    /* border-radius: 4px; */
+    color: #585858;
+    background-color: #ffffff;
+    border: 1px dashed #252525;
+}
+
+.pagination > li:last-child > a, .pagination > li:last-child > span {
+    /* border-radius: 4px; */
+    color: #585858;
+    background-color: #ffffff;
+    border: 1px dashed #585858;
+}
+
+.pagination > li:first-child > a:hover, .pagination > li:first-child > span:hover {
+    color: #ffffff;
+    background-color: #7a7a7a;
+    border: 1px dashed #7a7a7a;
+}
+
+.pagination > li:last-child > a:hover, .pagination > li:last-child > span:hover {
+    color: #ffffff;
+    background-color: #7a7a7a;
+    border: 1px dashed #7a7a7a;
+}
+
+.pagination > li > a, .pagination > li > span {
+    padding: 4px 10px;
+    line-height: 1.3em;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 4px;
+}
