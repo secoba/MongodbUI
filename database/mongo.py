@@ -5,6 +5,7 @@
 # File: mongo.py
 
 
+import bson
 from pymongo import MongoClient
 
 
@@ -31,7 +32,7 @@ class MongoService():
     def get_collection(self, collection):
         if not self.is_login:
             raise AuthErr
-        return self.__db[collection]
+        return self.__db[collection].with_options(codec_options=bson.CodecOptions(unicode_decode_error_handler="ignore"))
 
     def get_collections(self):
         if not self.is_login:

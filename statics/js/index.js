@@ -1,3 +1,18 @@
+const utf8ToB64 = (str) => {
+    return btoa(unescape(encodeURIComponent(str)))
+};
+
+/**
+  * base64Str to string
+  * @param {string} b64Str base64Str
+  *
+  * @returns {string} string
+  */
+const b64ToUtf8 = (b64Str) => {
+    return decodeURIComponent(escape(atob(b64Str)))
+};
+
+
 function sendPost(url, json_data) {
     let rst;
     $.ajax({
@@ -69,11 +84,16 @@ $(".save-config").click(function () {
 });
 
 
-function getPageData(page) {
+function getPageData(page, queryString) {
     let collection = $("#collect-select option:selected").attr("value");
-    let rst = sendGet("/data/data_list?collection=" + collection + "&page=" + page);
+    if (queryString !== undefined && queryString.length > 0) {
+        queryString = utf8ToB64(queryString)
+    }
+    let rst = sendGet("/data/data_list?collection=" + collection + "&page=" + page + "&query=" + queryString);
+    console.log(rst);
     if (rst["status"] === 1) {
         console.log(rst["msg"]);
+        $("#item-list").html("");
     } else {
         let table_data = "";
         let total = rst["data"]["current_page"] * rst["data"]["current_size"];
@@ -119,20 +139,28 @@ function getPageData(page) {
 $("#prev_page").click(function () {
     let page = $("#prev_page").val();
     if (page.length > 0) {
-        getPageData(page)
+        getPageData(page, $(".search-input").val())
     }
 });
 
 $("#next_page").click(function () {
     let page = $("#next_page").val();
     if (page.length > 0) {
-        getPageData(page)
+        getPageData(page, $(".search-input").val())
     }
 });
 
 
 $("#collect-select").change(function (data) {
-    getPageData(1)
+    getPageData(1, $(".search-input").val())
 });
 
-getPageData(1);
+// search
+$(".search-input").keypress(function (e) {
+    if (e.which === 13) {
+        getPageData(1, $(".search-input").val())
+    }
+});
+
+
+getPageData(1, "true");

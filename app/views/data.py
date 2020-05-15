@@ -3,16 +3,18 @@
 # Author: lynn
 # Date: 2020-05-10
 # File: data.py
-
+import base64
 
 from bson.objectid import ObjectId
 from django.views.decorators.csrf import csrf_exempt
 
+from app.cel import parser_expr
 # from app.models import Config
 from app.views import STATUS
 from app.views import json_data_filter_list
 from app.views import json_response
 from config.data import connection
+from logger import log_error
 
 
 def data_del(request):
@@ -29,23 +31,30 @@ def data_del(request):
 def data_list(request):
     """ data list with pagination """
     try:
+        size = 14
         data = list()
+        query = request.GET.get("query", "")
         page = int(request.GET.get("page", 0))
         page = page - 1 if page > 0 else 0
-        size = 14
-        # size = int(request.GET.get("size", 10))
-        # size = 100 if size > 100 else size
-        query_filter = []
-        pos = page * size
         collect = request.GET.get("collection", "")
+        try:
+            de_str = base64.b64decode(query).decode("utf-8") if query else None
+            query = parser_expr(de_str) if de_str else {}
+        except Exception as ex:
+            log_error(ex)
+            return json_response(status=STATUS.Ok, msg="success",
+                                 data={"list": [],
+                                       "count": 0,
+                                       "current_size": size,
+                                       "current_page": page + 1,
+                                       "current_collection": collect})
+        pos = page * size
         if len(connection) < 1:
             return json_response(status=STATUS.Err,
                                  msg="database config not found", data={})
         mgo = connection["client"]
-        total = mgo.get_collection(collect).find(
-            {"$and": query_filter} if len(query_filter) > 0 else {}).count()
-        rows = mgo.get_collection(collect).find(
-            {"$and": query_filter} if len(query_filter) > 0 else {}).skip(pos).limit(size)
+        total = mgo.get_collection(collect).find(query if len(query) > 0 else {}).count()
+        rows = mgo.get_collection(collect).find(query if len(query) > 0 else {}).skip(pos).limit(size)
         for item in rows:
             data.append(item)
         connection["current_collection"] = collect
@@ -57,6 +66,7 @@ def data_list(request):
                                    "current_page": page + 1,
                                    "current_collection": collect})
     except Exception as ex:
+        log_error(ex)
         return json_response(status=STATUS.Err, msg="query data list err: %s" % ex, data={})
 
 
