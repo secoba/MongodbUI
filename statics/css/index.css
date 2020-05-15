@@ -7,6 +7,12 @@ html, body {
     background-color: #ececec;
 }
 
+footer {
+    color: #585858;
+    font-size: 12px;
+    text-align: center;
+}
+
 ::-webkit-scrollbar {
     width: 4px;
     height: 4px;

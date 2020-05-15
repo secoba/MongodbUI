@@ -15,7 +15,10 @@ Including another URLconf
 """
 # from django.contrib import admin
 
+from django.conf import settings
 from django.conf.urls import url, include
+from django.conf.urls.static import static
+from django.views import static as st
 
 from app import view
 
@@ -23,4 +26,7 @@ urlpatterns = [
     url(r"^$", view.index, name="index"),
     url(r"^data/", include("app.urls.data", namespace="data")),
     url(r"^config/", include("app.urls.config", namespace="config")),
+    url(r'^static/(?P<path>.*)$', st.serve, {'document_root': settings.STATIC_ROOT}, name='static'),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
