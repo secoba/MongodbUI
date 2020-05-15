@@ -10,14 +10,22 @@
 <div class="content">
     <div class="search">
         <div class="search-form">
-            <input type="text" placeholder="name == 'test' && age > 19" class="search-input" value="">
+            <input type="text" placeholder="example: name == 'test' && age > 19" class="search-input" value="">
             <div class="info-div">
-                <input type="text" id="host" placeholder="host" class="info-input" value="127.0.0.1">
-                <input type="text" id="port" placeholder="port" class="info-input" value="27017">
-                <input type="text" id="database" placeholder="database" class="info-input" value="data">
-                <input type="text" id="username" placeholder="username" autocomplete="off" class="info-input" value="user">
-                <input type="password" id="password" placeholder="password" autocomplete="off" class="info-input" value="user@niubipass">
-                <button class="info-btn save-config">Save</button>
+                <input type="text" id="host" placeholder="host" class="info-input" value="">
+                <input type="text" id="port" placeholder="port" class="info-input" value="">
+                <input type="text" id="database" placeholder="database" class="info-input" value="">
+                <input type="text" id="username" placeholder="username" autocomplete="off" class="info-input" value="">
+                <input type="password" id="password" placeholder="password" autocomplete="off" class="info-input" value="">
+                <button class="info-btn save-config">Connect</button>
+                <div class="select-div">
+                    <select id="key-select">
+                        <option value="">choose key</option>
+                        {% for key in collection_keys %}
+                            <option value="{{ key }}">{{ key }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <div class="select-div">
                     <select id="collect-select">
                         <option value="">choose collection</option>
@@ -31,12 +39,16 @@
         </div>
     </div>
     <div class="table-list">
-        <table class="data-list">
-            <caption>current -> <span id="current_collection">{% if current_collection %}{{ current_collection }}{% endif %} </span></caption>
+        <table class="data-list" cellspacing="0" cellpadding="0">
+            {% comment %}
+            <caption>current -> <span id="current_collection">
+                {% if current_collection %}{{ current_collection }}{% endif %}
+            </span></caption>
+            {% endcomment %}
             <thead>
             <tr>
                 {# <th class="th-left">#</th> #}
-                <th class="th-center">items</th>
+                <th class="th-center">items <span class="count"></span></th>
                 <th class="th-right">operation</th>
             </tr>
             </thead>
@@ -51,6 +63,14 @@
             <button id="next_page" value="">下一页</button>
         </li>
     </ul>
+</div>
+<div class="container">
+    <div id="myModel">
+        <div class="model-content">
+            <span class="model-close">x</span>
+            <pre id="json-content"></pre>
+        </div>
+    </div>
 </div>
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js/index.js' %}"></script>

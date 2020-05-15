@@ -57,7 +57,7 @@ function limitText(oldText, len) {
 
 
 function delItem(item_id) {
-    var status = confirm("delete confirm？");
+    let status = confirm("delete confirm？");
     if (!status) {
         return false;
     }
@@ -66,10 +66,25 @@ function delItem(item_id) {
 }
 
 
-function viewItem(item_id) {
-    console.log(sendGet("/data/data_info?id=" + item_id));
+function showModel() {
+    $("#myModel").css("display", "block");
 }
 
+
+function closeModel() {
+    $("#myModel").css("display", "none");
+}
+
+
+function viewItem(item_id) {
+    let rst = sendGet("/data/data_info?id=" + item_id);
+    $("#json-content").html(JSON.stringify(rst["data"], null, 4));
+    showModel();
+}
+
+$(".model-close").click(function () {
+    closeModel();
+});
 
 $(".save-config").click(function () {
     let rst = sendPost("/config/save_config", {
@@ -96,6 +111,7 @@ function getPageData(page, queryString) {
         $("#item-list").html("");
     } else {
         let table_data = "";
+        let key_data = "<option value=\"\">choose key</option>";
         let total = rst["data"]["current_page"] * rst["data"]["current_size"];
         $("#current_collection").html(rst["data"]["current_collection"]);
         rst["data"]["list"].map(function (value, index, array) {
@@ -119,6 +135,11 @@ function getPageData(page, queryString) {
                 "</tr>"
         });
         $("#item-list").html(table_data);
+        rst["data"]["collection_keys"].map(function (val, idx, arr) {
+            key_data += "<option value='" + val + "'>" + val + "</option>"
+        });
+        $("#key-select").html(key_data);
+        // pagination
         if (total < rst["data"]["count"]) {
             $("#next_page").attr("disable", "");
             $("#next_page").attr("value", rst["data"]["current_page"] + 1);
@@ -133,6 +154,7 @@ function getPageData(page, queryString) {
             $("#prev_page").attr("value", "");
             $("#prev_page").attr("disable", "disable");
         }
+        $(".count").html("( " + rst["data"]["count"] + " )");
     }
 }
 
@@ -152,7 +174,17 @@ $("#next_page").click(function () {
 
 
 $("#collect-select").change(function (data) {
-    getPageData(1, $(".search-input").val())
+    getPageData(1, $(".search-input").val());
+    //window.location.reload();
+});
+
+$("#key-select").change(function (data) {
+    let key = $("#key-select option:selected").attr("value");
+    if ($(".search-input").val().length > 0) {
+        $(".search-input").val($(".search-input").val() + (" && " + key + " == ''"));
+    } else {
+        $(".search-input").val($(".search-input").val() + (key + " == ''"));
+    }
 });
 
 // search
@@ -163,4 +195,4 @@ $(".search-input").keypress(function (e) {
 });
 
 
-getPageData(1, "true");
+getPageData(1, "");

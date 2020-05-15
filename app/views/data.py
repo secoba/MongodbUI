@@ -3,18 +3,35 @@
 # Author: lynn
 # Date: 2020-05-10
 # File: data.py
+
 import base64
 
+# from app.models import Config
+from bson import Code
 from bson.objectid import ObjectId
 from django.views.decorators.csrf import csrf_exempt
 
 from app.cel import parser_expr
-# from app.models import Config
 from app.views import STATUS
 from app.views import json_data_filter_list
 from app.views import json_response
 from config.data import connection
 from logger import log_error
+
+
+def collection_keys(collect):
+    """ collection keys """
+    try:
+        if len(connection) < 1:
+            return []
+        mgo = connection["client"]
+        map_reduce = Code("function() { for (var key in this) { emit(key, null); } }")
+        reduce = Code("function(key, stuff) { return null; }")
+        result = mgo.get_collection(collect).map_reduce(map_reduce, reduce, "my_results")
+        return result.distinct('_id')
+    except Exception as ex:
+        log_error(ex)
+        return []
 
 
 def data_del(request):
@@ -58,13 +75,15 @@ def data_list(request):
         for item in rows:
             data.append(item)
         connection["current_collection"] = collect
+        connection["collection_keys"] = collection_keys(collect)
         data = json_data_filter_list(json_data=data)
         return json_response(status=STATUS.Ok, msg="success",
                              data={"list": data,
                                    "count": total,
                                    "current_size": size,
                                    "current_page": page + 1,
-                                   "current_collection": collect})
+                                   "current_collection": collect,
+                                   "collection_keys": connection["collection_keys"]})
     except Exception as ex:
         log_error(ex)
         return json_response(status=STATUS.Err, msg="query data list err: %s" % ex, data={})

@@ -57,7 +57,7 @@ html, body {
     font-size: 16px;
     text-align: center;
     border-radius: 30px;
-    border: 1px solid #585858;
+    border: 1px dashed #585858;
 }
 
 .info-div {
@@ -69,11 +69,12 @@ html, body {
 .select-div {
     float: right;
     display: inline-block;
-    width: 25%;
+    width: 15%;
     height: 23px;
+    margin-left: 10px;
     border-radius: 4px;
     text-align: center;
-    border: 1px solid #909090;
+    border: 1px dashed #909090;
     /*position: relative;*/
 }
 
@@ -90,6 +91,7 @@ html, body {
     padding-right: 10px;
     padding-left: 10px;
     border-radius: 4px;
+    background-color: #ffffff;
 }
 
 .select-div > select::-ms-expand {
@@ -117,7 +119,7 @@ html, body {
     font-size: 12px;
     text-align: center;
     border-radius: 4px;
-    border: 1px solid #585858;
+    border: 1px dashed #585858;
 }
 
 .info-btn {
@@ -143,8 +145,8 @@ html, body {
     /*height: 100%;*/
     overflow-x: auto;
     width: 100%;
-    border: 1px solid #585858; /* 表格边框 */
-    border-collapse: collapse; /* 边框重叠 */
+    /*border: 1px dashed #585858; !* 表格边框 *!*/
+    /*border-collapse: collapse; !* 边框重叠 *!*/
 }
 
 .data-list tr:hover {
@@ -158,26 +160,55 @@ html, body {
     /*border-top-left-radius: 5px;*/
     /*border-top-right-radius: 5px;*/
     background-color: #f0f7ff;
-    border: 1px solid #585858; /* 表格标题边框 */
+    border: 1px dashed #585858; /* 表格标题边框 */
     border-bottom: none;
 }
 
 .data-list table tr th, .data-list table tr td {
-    border-right: 1px solid #d4d8da;
-    border-bottom: 1px solid #d4d8da;
+    /*border-right: 1px dashed #d4d8da;*/
+    /*border-bottom: 1px dashed #d4d8da;*/
     padding: 5px;
 }
 
 .data-list th {
-    border: 1px solid #585858; /* 行、列名称边框 */
-    background-color: #f0f7ff;
+    height: 38px;
     font-weight: bold;
-    padding: 4px 10px 4px 10px;
     text-align: center;
+    background-color: #dbf0fe;
+    /*padding: 5px 10px;*/
+    /*border-top: 1px dashed #585858;*/
+    /*border: 1px dashed #585858; !* 行、列名称边框 *!*/
 }
 
+
+/* -------------------------------------------------------------------------------------- */
+
+
+table tr:first-child th:first-child {
+    border-top-left-radius: 5px;
+}
+
+
+table tr:first-child th:last-child {
+    border-top-right-radius: 5px;
+}
+
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 5px;
+}
+
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 5px;
+}
+
+
+/* -------------------------------------------------------------------------------------- */
+
+
 .data-list td {
-    border: 1px solid #585858; /* 单元格边框 */
+    border-bottom: 1px dashed #585858; /* 单元格边框 */
     text-align: center;
     /*padding: 4px;*/
 }
@@ -263,7 +294,7 @@ html, body {
     outline: none;
     cursor: pointer;
     background-color: #ffffff;
-    border: 1px solid #252525;
+    border: 1px dashed #252525;
 }
 
 .pagination > li:last-child > button, .pagination > li:last-child > span {
@@ -272,19 +303,19 @@ html, body {
     outline: none;
     cursor: pointer;
     background-color: #ffffff;
-    border: 1px solid #585858;
+    border: 1px dashed #585858;
 }
 
 .pagination > li:first-child > button:hover, .pagination > li:first-child > span:hover {
     color: #ffffff;
-    background-color: #7a7a7a;
-    border: 1px solid #7a7a7a;
+    background-color: #68b7fe;
+    border: 1px dashed #68b7fe;
 }
 
 .pagination > li:last-child > button:hover, .pagination > li:last-child > span:hover {
     color: #ffffff;
-    background-color: #7a7a7a;
-    border: 1px solid #7a7a7a;
+    background-color: #68b7fe;
+    border: 1px dashed #68b7fe;
 }
 
 .pagination > li > button, .pagination > li > span {
@@ -294,3 +325,57 @@ html, body {
     text-decoration: none;
     border-radius: 4px;
 }
+
+
+/* ------------------------------------------------------ */
+
+
+.container {
+    width: 40%;
+    /*margin: 50px auto;*/
+    text-align: center;
+}
+
+#myModel {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+    position: absolute;
+    background-color: rgba(9, 9, 9, 0.63);
+}
+
+.model-content {
+    width: 40%;
+    height: 50%;
+    text-align: center;
+    border-radius: 5px;
+    margin: 100px auto;
+    line-height: 30px;
+    z-index: 10001;
+    background-color: #ffffff;
+}
+
+.model-content pre {
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-align: left;
+    line-height: 1.5em;
+    padding: 10px 20px;
+    height: 96%;
+    width: 93%;
+}
+
+.model-close {
+    float: right;
+    cursor: pointer;
+    color: #585858;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* ------------------------------------------------------ */
