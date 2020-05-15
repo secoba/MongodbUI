@@ -32,7 +32,7 @@ def get_web_port():
 def get_web_debug():
     """ get debug """
     try:
-        return bool(os.environ.get("WEB_DEBUG")) if os.environ.get("WEB_DEBUG") else conf.get("web", "debug")
+        return bool(os.environ.get("WEB_DEBUG")) if os.environ.get("WEB_DEBUG") else conf.getboolean("web", "debug")
     except Exception as e:
         print("[-] get web debug err: %s, use default false" % e)
     return False

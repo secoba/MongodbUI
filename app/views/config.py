@@ -34,9 +34,9 @@ def save_config(request):
         connection["username"] = username
         connection["password"] = password
         try:
-            connection["client"] = MongoService(host=connection.host, port=int(connection.port),
-                                                db=connection.database, username=connection.username,
-                                                password=connection.password, max_pool=5, min_pool=2)
+            connection["client"] = MongoService(host=host, port=int(port),
+                                                db=database, username=username,
+                                                password=password, max_pool=5, min_pool=2)
             return json_response(status=STATUS.Ok, msg="save config success", data={})
         except Exception as ex:
             return json_response(status=STATUS.Err, msg="save config failed: %s" % ex, data={})
