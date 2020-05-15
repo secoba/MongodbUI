@@ -6,6 +6,23 @@ html, body {
     background-color: #ececec;
 }
 
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background-color: #909090
+}
+
+
 .content {
     top: 5%;
     width: 60%;
@@ -13,16 +30,19 @@ html, body {
     background-color: #ffffff;
     margin: 0 auto;
     position: relative;
-    border-radius: 20px;
+    border-radius: 4px;
 }
 
 
 .search {
-    padding: 4em 4em 3em 4em;
+    padding: 3em 4em 2em 4em;
+    height: 10%;
 }
 
 .table-list {
-    padding: 0 4em 2em 4em;
+    padding: 0 4em 0 4em;
+    height: 70%;
+    overflow-x: auto;
 }
 
 .search-form {
@@ -30,29 +50,74 @@ html, body {
 }
 
 .search-input {
-    width: 99%;
+    width: 100%;
     height: 40px;
     outline: none;
     color: #585858;
     font-size: 16px;
     text-align: center;
-    border-radius: 20px;
-    border: 1px dashed #585858;
+    border-radius: 30px;
+    border: 1px solid #585858;
 }
 
 .info-div {
     padding: 1em 0 0 0;
 }
 
+/* ------------------------------------ select ------------------------------------ */
+
+.select-div {
+    float: right;
+    display: inline-block;
+    width: 25%;
+    height: 23px;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #909090;
+    /*position: relative;*/
+}
+
+.select-div > select {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 18px;
+    line-height: 1.5em;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+
+.select-div > select::-ms-expand {
+    /* For IE10 */
+    display: none;
+}
+
+.select-div > select > option {
+    color: #585858;
+}
+
+.select-div > select:focus {
+    border: none;
+}
+
+
+/* ------------------------------------------------------- */
+
+
 .info-input {
     width: 10%;
-    height: 21px;
+    height: 20px;
     outline: none;
     color: #585858;
     font-size: 12px;
     text-align: center;
     border-radius: 4px;
-    border: 1px dashed #585858;
+    border: 1px solid #585858;
 }
 
 .info-btn {
@@ -61,6 +126,7 @@ html, body {
     cursor: pointer;
     background-color: #10c453;
     padding: 4px 10px;
+    height: 24px;
     color: #f4f4f4;
     outline: none;
 }
@@ -74,8 +140,10 @@ html, body {
 /* ------------------------------- table ------------------------------- */
 
 .data-list {
+    /*height: 100%;*/
+    overflow-x: auto;
     width: 100%;
-    border: 1px dashed #585858; /* 表格边框 */
+    border: 1px solid #585858; /* 表格边框 */
     border-collapse: collapse; /* 边框重叠 */
 }
 
@@ -87,10 +155,10 @@ html, body {
 .data-list caption {
     font-weight: bold;
     padding: 10px 0;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    /*border-top-left-radius: 5px;*/
+    /*border-top-right-radius: 5px;*/
     background-color: #f0f7ff;
-    border: 1px dashed #585858; /* 表格标题边框 */
+    border: 1px solid #585858; /* 表格标题边框 */
     border-bottom: none;
 }
 
@@ -101,7 +169,7 @@ html, body {
 }
 
 .data-list th {
-    border: 1px dashed #585858; /* 行、列名称边框 */
+    border: 1px solid #585858; /* 行、列名称边框 */
     background-color: #f0f7ff;
     font-weight: bold;
     padding: 4px 10px 4px 10px;
@@ -109,13 +177,18 @@ html, body {
 }
 
 .data-list td {
-    border: 1px dashed #585858; /* 单元格边框 */
+    border: 1px solid #585858; /* 单元格边框 */
     text-align: center;
-    padding: 4px;
+    /*padding: 4px;*/
 }
 
 .th-left {
     width: 10%;
+}
+
+.th-center {
+    /*width: 75%;*/
+    /*text-align: left;*/
 }
 
 .th-right {
@@ -128,9 +201,28 @@ html, body {
     cursor: pointer;
 }
 
+
+.data-list .operation {
+    padding: 5px 5px;
+    display: inline-block;
+}
+
+.data-list .item-detail {
+    word-break: break-word;
+    word-wrap: break-spaces;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.data-list .item-summary {
+    outline: none;
+    cursor: pointer;
+}
+
+
 .data-list .view {
     background-color: #68b7fe;
-    padding: 5px 10px;
+    padding: 5px 8px;
     color: #f4f4f4;
     outline: none;
 }
@@ -142,7 +234,7 @@ html, body {
 
 .data-list .delete {
     background-color: #e97984;
-    padding: 5px 10px;
+    padding: 5px 8px;
     color: #f4f4f4;
     outline: none;
 }
@@ -156,41 +248,46 @@ html, body {
 
 
 .pagination {
-    padding: 0 4em 0 0;
+    padding: 1em 4em 0 0;
     text-align: right;
+    height: 4%;
 }
 
 .pagination > li {
     display: inline;
 }
 
-.pagination > li:first-child > a, .pagination > li:first-child > span {
+.pagination > li:first-child > button, .pagination > li:first-child > span {
     /* border-radius: 4px; */
     color: #585858;
+    outline: none;
+    cursor: pointer;
     background-color: #ffffff;
-    border: 1px dashed #252525;
+    border: 1px solid #252525;
 }
 
-.pagination > li:last-child > a, .pagination > li:last-child > span {
+.pagination > li:last-child > button, .pagination > li:last-child > span {
     /* border-radius: 4px; */
     color: #585858;
+    outline: none;
+    cursor: pointer;
     background-color: #ffffff;
-    border: 1px dashed #585858;
+    border: 1px solid #585858;
 }
 
-.pagination > li:first-child > a:hover, .pagination > li:first-child > span:hover {
+.pagination > li:first-child > button:hover, .pagination > li:first-child > span:hover {
     color: #ffffff;
     background-color: #7a7a7a;
-    border: 1px dashed #7a7a7a;
+    border: 1px solid #7a7a7a;
 }
 
-.pagination > li:last-child > a:hover, .pagination > li:last-child > span:hover {
+.pagination > li:last-child > button:hover, .pagination > li:last-child > span:hover {
     color: #ffffff;
     background-color: #7a7a7a;
-    border: 1px dashed #7a7a7a;
+    border: 1px solid #7a7a7a;
 }
 
-.pagination > li > a, .pagination > li > span {
+.pagination > li > button, .pagination > li > span {
     padding: 4px 10px;
     line-height: 1.3em;
     font-size: 16px;

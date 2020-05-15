@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>MongoClient</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
@@ -12,58 +12,44 @@
         <form action="" class="search-form">
             <input type="text" placeholder="name == 'test' && age > 19" class="search-input">
             <div class="info-div">
-                <input type="text" id="host" placeholder="host" class="info-input" value="{{ host }}">
-                <input type="text" id="port" placeholder="port" class="info-input" value="{{ port }}">
-                <input type="text" id="database" placeholder="database" class="info-input" value="{{ database }}">
-                <input type="text" id="password" placeholder="username" class="info-input" value="{{ username }}">
-                <input type="password" id="password" placeholder="password" class="info-input" value="{{ password }}">
-                <button class="info-btn save-config">保 存</button>
+                <input type="text" id="host" placeholder="host" class="info-input" value="127.0.0.1">
+                <input type="text" id="port" placeholder="port" class="info-input" value="27017">
+                <input type="text" id="database" placeholder="database" class="info-input" value="data">
+                <input type="text" id="username" placeholder="username" autocomplete="off" class="info-input" value="user">
+                <input type="password" id="password" placeholder="password" autocomplete="off" class="info-input" value="user@niubipass">
+                <button class="info-btn save-config">Save</button>
+                <div class="select-div">
+                    <select id="collect-select">
+                        <option value="">choose collection</option>
+                        {% for collect in collects %}
+                            <option value="{{ collect }}"
+                                    {% if current_collection and current_collection == collect %}selected{% endif %}>{{ collect }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
         </form>
     </div>
     <div class="table-list">
         <table class="data-list">
-            <caption>Current Collection -> {{ collection }}</caption>
+            <caption>current -> <span id="current_collection">{% if current_collection %}{{ current_collection }}{% endif %} </span></caption>
             <thead>
             <tr>
-                <th class="th-left">#ID</th>
-                <th>DataItem</th>
-                <th class="th-right">Operation</th>
+                {# <th class="th-left">#</th> #}
+                <th class="th-center">items</th>
+                <th class="th-right">operation</th>
             </tr>
             </thead>
-            <tbody>
-            {% for item in items %}
-                <tr>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item }}</td>
-                    <td>
-                        <button class="view">查 看</button>
-                        <button class="delete">删 除</button>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
+            <tbody id="item-list"></tbody>
         </table>
     </div>
     <ul class="pagination">
-        {% if current_page > 1 %}
-            <li class="paginate_button previous">
-                <a href="?page={{ current_page | add:-1 }}">上一页</a>
-            </li>
-        {% else %}
-            <li class="paginate_button previous">
-                <a href="javascript:void(0);">上一页</a>
-            </li>
-        {% endif %}
-        {% if current_page < page_range %}
-            <li class="paginate_button  next">
-                <a href="?page={{ current_page | add:1 }}">下一页</a>
-            </li>
-        {% else %}
-            <li class="paginate_button next">
-                <a href="javascript:void(0);">下一页</a>
-            </li>
-        {% endif %}
+        <li class="paginate_button previous">
+            <button id="prev_page" value="">上一页</button>
+        </li>
+        <li class="paginate_button next">
+            <button id="next_page" value="">下一页</button>
+        </li>
     </ul>
 </div>
 <script src="{% static 'js/jquery.js' %}"></script>

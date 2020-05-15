@@ -23,5 +23,4 @@ urlpatterns = [
     url(r"^$", view.index, name="index"),
     url(r"^data/", include("app.urls.data", namespace="data")),
     url(r"^config/", include("app.urls.config", namespace="config")),
-    url(r"^collect/", include("app.urls.collect", namespace="collect")),
 ]

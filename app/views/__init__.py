@@ -48,7 +48,10 @@ def json_data_filter_list(json_data, fields=None, exclude=None):
                         if k in fields:
                             data_map[k] = v
                     else:
-                        data_map[k] = v
+                        if k == "_id":
+                            data_map[k] = str(v)
+                        else:
+                            data_map[k] = v
                 data.append(data_map)
     return data
 

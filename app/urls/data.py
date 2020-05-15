@@ -11,6 +11,7 @@ from app.views import data
 app_name = "Data"
 
 urlpatterns = [
+    url(r"^data_del$", data.data_del, name="data_del"),
     url(r"^data_list$", data.data_list, name="data_list"),
     url(r"^data_info$", data.data_info, name="data_info"),
 ]
