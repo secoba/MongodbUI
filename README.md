@@ -1,4 +1,16 @@
 ### Mongodb Web Client
 
+#### build
+
+```bash
+docker build . -t mongo_ui:$(cat .version)
+```
+
+#### run
+
+```bash
+docker-compose up -d
+```
+
 TODO:
-- ext.xxx.xxx 查询操作
+- [ ] ext.xxx.xxx query

@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  web:
+    image: mongo_ui:v1.0
+    restart: always
+    container_name: mongo_ui_v1.0
+    ports:
+      - 18080:18080
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
+      # - /etc/timezone:/etc/timezone:ro
+      # - /etc/hosts:/etc/hosts:ro
+      # - /etc/nsswitch.conf:/etc/nsswitch.conf:ro

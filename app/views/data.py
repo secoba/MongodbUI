@@ -48,7 +48,7 @@ def data_del(request):
 def data_list(request):
     """ data list with pagination """
     try:
-        size = 14
+        size = 15
         data = list()
         query = request.GET.get("query", "")
         page = int(request.GET.get("page", 0))

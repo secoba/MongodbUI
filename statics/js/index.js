@@ -95,7 +95,9 @@ $(".save-config").click(function () {
         "password": $("#password").val(),
     });
     alert(rst["msg"]);
-    window.location.href = "/"
+    if (rst["status"] === 0) {
+        window.location.href = "/"
+    }
 });
 
 
@@ -126,10 +128,10 @@ function getPageData(page, queryString) {
                 "</td>" +
                 "<td>" +
                 "<div class='operation'>" +
-                "<button class=\"view\" onclick=viewItem('" + value["_id"] + "')>查 看</button>" +
+                "<button class=\"view\" onclick=viewItem('" + value["_id"] + "')>view</button>" +
                 "</div>" +
                 "<div class='operation'>" +
-                "<button class=\"delete\"  onclick=delItem('" + value["_id"] + "')>删 除</button>" +
+                "<button class=\"delete\"  onclick=delItem('" + value["_id"] + "')>delete</button>" +
                 "</div>" +
                 "</td>" +
                 "</tr>"

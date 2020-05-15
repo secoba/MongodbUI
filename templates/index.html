@@ -12,11 +12,11 @@
         <div class="search-form">
             <input type="text" placeholder="example: name == 'test' && age > 19" class="search-input" value="">
             <div class="info-div">
-                <input type="text" id="host" placeholder="host" class="info-input" value="">
-                <input type="text" id="port" placeholder="port" class="info-input" value="">
-                <input type="text" id="database" placeholder="database" class="info-input" value="">
-                <input type="text" id="username" placeholder="username" autocomplete="off" class="info-input" value="">
-                <input type="password" id="password" placeholder="password" autocomplete="off" class="info-input" value="">
+                <input type="text" id="host" placeholder="host" class="info-input" value="{{ host }}">
+                <input type="text" id="port" placeholder="port" class="info-input" value="{{ port }}">
+                <input type="text" id="database" placeholder="database" class="info-input" value="{{ database }}">
+                <input type="text" id="username" placeholder="username" autocomplete="off" class="info-input" value="{{ username }}">
+                <input type="password" id="password" placeholder="password" autocomplete="off" class="info-input" value="{{ password }}">
                 <button class="info-btn save-config">Connect</button>
                 <div class="select-div">
                     <select id="key-select">
@@ -57,10 +57,10 @@
     </div>
     <ul class="pagination">
         <li class="paginate_button previous">
-            <button id="prev_page" value="">上一页</button>
+            <button id="prev_page" value="">prev</button>
         </li>
         <li class="paginate_button next">
-            <button id="next_page" value="">下一页</button>
+            <button id="next_page" value="">next</button>
         </li>
     </ul>
 </div>

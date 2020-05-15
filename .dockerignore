@@ -1,0 +1,11 @@
+.idea/
+*.pyc
+/venv/
+/logs/
+/static/
+/example/
+README.md
+.git/
+Dockerfile
+.gitignore
+.dockerignore

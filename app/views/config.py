@@ -6,10 +6,11 @@
 
 
 from django.views.decorators.csrf import csrf_exempt
-from database.mongo import MongoService
+
 from app.views import STATUS
 from app.views import json_response
 from config.data import connection
+from database.mongo import MongoService
 
 
 @csrf_exempt
@@ -32,8 +33,11 @@ def save_config(request):
         connection["database"] = database
         connection["username"] = username
         connection["password"] = password
-        connection["client"] = MongoService(host=connection.host, port=int(connection.port),
-                                            db=connection.database, username=connection.username,
-                                            password=connection.password, max_pool=5, min_pool=2)
-        return json_response(status=STATUS.Ok, msg="save config success", data={})
+        try:
+            connection["client"] = MongoService(host=connection.host, port=int(connection.port),
+                                                db=connection.database, username=connection.username,
+                                                password=connection.password, max_pool=5, min_pool=2)
+            return json_response(status=STATUS.Ok, msg="save config success", data={})
+        except Exception as ex:
+            return json_response(status=STATUS.Err, msg="save config failed: %s" % ex, data={})
     return json_response(status=STATUS.Err, msg="method not support", data={})

@@ -1,5 +1,6 @@
-*.pyc
 .idea/
-/logs/
+*.pyc
 /venv/
+/logs/
+/example/
 /static/
