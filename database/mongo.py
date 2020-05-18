@@ -16,17 +16,22 @@ class AuthErr(Exception):
 class MongoService():
     def __init__(self, host, port, db, username, password, max_pool, min_pool):
         self.__conn = MongoClient(host, port,
+                                  connect=False,
                                   maxPoolSize=max_pool,
                                   minPoolSize=min_pool,
-                                  connect=False)
+                                  socketTimeoutMS=5000,
+                                  connectTimeoutMS=5000)
         self.is_login = self.__connect(db, username, password)
 
     def __connect(self, db, username, password):
         self.__db = self.__conn[db]
-        if username and len(username) > 0 \
-                and password and len(password) > 0:
-            is_login = self.__db.authenticate(username, password)
-            return is_login
+        try:
+            if username and len(username) > 0 \
+                    and password and len(password) > 0:
+                is_login = self.__db.authenticate(username, password)
+                return is_login
+        except Exception as ex:
+            print(ex)
         return False
 
     def get_collection(self, collection):

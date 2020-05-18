@@ -14,6 +14,7 @@ class ValidErr(Exception):
 
 
 conn = {}
+attr = []
 
 OP_MAP = {
     ast.Gt: "$gt",
@@ -25,15 +26,29 @@ OP_MAP = {
 ALLOW_OP = [ast.Gt, ast.GtE, ast.Lt, ast.LtE, ast.Eq, ast.NotEq]
 
 
+def get_attr(left_attr):
+    global attr
+    if isinstance(left_attr.__dict__.get("value"), ast.Attribute):
+        attr.append(left_attr.__dict__.get("attr"))
+        get_attr(left_attr.__dict__.get("value"))
+    else:
+        attr.append(left_attr.__dict__.get("attr"))
+        attr.append(left_attr.__dict__.get("value").__dict__.get("id"))
+    return ".".join(reversed(attr))
+
+
 def get_val(node):
     if isinstance(node, ast.Compare):
         op = node.__dict__.get("ops")[0]
         left = node.__dict__.get("left")
-        if not isinstance(left, ast.Name):
-            raise ValidErr("expr left type err, must be ast.Name")
-        if type(op) not in ALLOW_OP:
-            raise ValidErr("expr op not support")
-        left_val = left.__dict__.get("id")
+        if isinstance(left, ast.Attribute):
+            left_val = get_attr(left)
+        else:
+            if not isinstance(left, ast.Name):
+                raise ValidErr("expr left type err, must be ast.Name")
+            if type(op) not in ALLOW_OP:
+                raise ValidErr("expr op not support")
+            left_val = left.__dict__.get("id")
         right = node.__dict__.get("comparators")[0]
         right_val = right.__dict__.get("s") if isinstance(right, ast.Str) else right.__dict__.get("n")
         if isinstance(op, ast.Eq):
@@ -79,9 +94,17 @@ def handle(node, ind=0, _list=[]):
 
 def parser_expr(expr_string):
     global conn
+    global attr
+    conn.clear()
+    attr.clear()
     conn = {}
     node = ast.parse(expr_string.strip()
                      .replace("&&", " and ")
                      .replace("||", " or ")).body[0].value
     handle(node=node, ind=0, _list=[])
     return conn
+
+
+if __name__ == '__main__':
+    print(parser_expr("test1.name1==123"))
+    print(parser_expr("test2.name2.demo2=='aaa'"))
