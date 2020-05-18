@@ -6,6 +6,7 @@
 /example/
 README.md
 .git/
+/doc/
 Dockerfile
 .gitignore
 .dockerignore
